@@ -28,8 +28,8 @@ void LoadPromotionRewardsConfig()
     // 기본값 설정
     g_promotionRewardsEnabled = sConfigMgr->GetOption<bool>("PromotionRewards.Enable", true); // 모듈 활성화 여부
     g_promotionRewardsCheckInterval = sConfigMgr->GetOption<uint32>("PromotionRewards.CheckInterval", 360000); // 초단위(1시간)
-    g_promotionRewardsGold = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardGold", 100000); // 코퍼단위(10골드)
-    g_promotionRewardsItemId = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardItemID", 0); // 아이템 ID
+    g_promotionRewardsGold = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardGold", 0); // 코퍼단위(10골드)
+    g_promotionRewardsItemId = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardItemID", 38082); // 아이템 ID 22칸 가방
     g_promotionRewardsItemQuantity = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardItemQuantity", 1); // 아이템 수량
     g_promotionRewardsMailSubject = sConfigMgr->GetOption<std::string>("PromotionRewards.MailSubject", "홍보 활동 보상이 도착했습니다!"); // 메일 제목
     g_promotionRewardsMailBody = sConfigMgr->GetOption<std::string>("PromotionRewards.MailBody", "참여해주셔서 감사합니다! 다음은 승인된 홍보 활동에 대한 보상입니다."); // 메일 본문
