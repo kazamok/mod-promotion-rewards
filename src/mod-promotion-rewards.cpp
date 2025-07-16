@@ -27,7 +27,7 @@ void LoadPromotionRewardsConfig()
 {
     // 기본값 설정
     g_promotionRewardsEnabled = sConfigMgr->GetOption<bool>("PromotionRewards.Enable", true);
-    g_promotionRewardsCheckInterval = sConfigMgr->GetOption<uint32>("PromotionRewards.CheckInterval", 300);
+    g_promotionRewardsCheckInterval = sConfigMgr->GetOption<uint32>("PromotionRewards.CheckInterval", 360000); // 초단위(1시간)
     g_promotionRewardsGold = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardGold", 100000);
     g_promotionRewardsItemId = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardItemID", 0);
     g_promotionRewardsItemQuantity = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardItemQuantity", 1);
