@@ -1,0 +1,24 @@
+#----------------------------------------------------------
+# 홍보 보상 모듈 설정
+#----------------------------------------------------------
+
+# 모듈 활성화 (0 = 비활성화, 1 = 활성화)
+PromotionRewards.Enable = 1
+
+# DB 확인 주기 (단위: 초, 예: 300 = 5분)
+PromotionRewards.CheckInterval = 3600
+
+# 지급할 골드 (단위: 코퍼, 예: 100000 = 10골드)
+PromotionRewards.RewardGold = 100000
+
+# 지급할 아이템 ID (0 = 없음)
+PromotionRewards.RewardItemID = 0
+
+# 지급할 아이템 수량
+PromotionRewards.RewardItemQuantity = 1
+
+# 우편 발송 시 제목
+PromotionRewards.MailSubject = "홍보 활동 보상이 도착했습니다!"
+
+# 우편 발송 시 본문
+PromotionRewards.MailBody = "참여해주셔서 감사합니다! 다음은 승인된 홍보 활동에 대한 보상입니다."
