@@ -6,13 +6,13 @@
 PromotionRewards.Enable = 1
 
 # DB 확인 주기 (단위: 초, 예: 300 = 5분)
-PromotionRewards.CheckInterval = 3600
+PromotionRewards.CheckInterval = 1800000
 
 # 지급할 골드 (단위: 코퍼, 예: 100000 = 10골드)
-PromotionRewards.RewardGold = 100000
+PromotionRewards.RewardGold = 1
 
 # 지급할 아이템 ID (0 = 없음)
-PromotionRewards.RewardItemID = 0
+PromotionRewards.RewardItemID = 38082
 
 # 지급할 아이템 수량
 PromotionRewards.RewardItemQuantity = 1
