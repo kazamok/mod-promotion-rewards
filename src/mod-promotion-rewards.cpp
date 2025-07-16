@@ -86,6 +86,8 @@ public:
                     }
 
                     uint32 accountId = sCharacterCache->GetCharacterAccountIdByGuid(playerGuidObj);
+                    CharacterDatabaseTransaction transaction = CharacterDatabase.BeginTransaction(); // 이 줄을 추가합니다.
+
                     WorldSession* session = sWorldSessionMgr->FindSession(accountId);
                     Player* player = nullptr;
                     if (session)
@@ -103,11 +105,11 @@ public:
                     {
                         if (Item* item = Item::CreateItem(g_promotionRewardsItemId, g_promotionRewardsItemQuantity))
                         {
+                            item->SaveToDB(transaction); // 이 줄을 추가하여 아이템을 DB에 저장합니다.
                             draft.AddItem(item);
                         }
                     }
                     MailReceiver receiver(playerGuidObj.GetCounter());
-                    CharacterDatabaseTransaction transaction = CharacterDatabase.BeginTransaction();
 
                     draft.SendMailTo(transaction, receiver, sender);
                     CharacterDatabase.CommitTransaction(transaction);
