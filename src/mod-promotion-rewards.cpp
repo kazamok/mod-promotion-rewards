@@ -27,7 +27,7 @@ time_t g_timeUntilNextCheck = 0;
 // 설정 로드 함수
 void LoadPromotionRewardsConfig()
 {
-    // 기본값 설정
+    // 기본값 설정 여기 수정해도 소용없음, 컨픽을 수정해야함
     g_promotionRewardsEnabled = sConfigMgr->GetOption<bool>("PromotionRewards.Enable", true); // 모듈 활성화 여부
     g_promotionRewardsCheckInterval = sConfigMgr->GetOption<uint32>("PromotionRewards.CheckInterval", 3600000); // 밀리초 단위(1시간)
     g_promotionRewardsGold = sConfigMgr->GetOption<uint32>("PromotionRewards.RewardGold", 100); // 코퍼단위
