@@ -71,8 +71,10 @@ public:
                     std::string characterName = fields[1].Get<std::string>();
 
                     // characterName을 소문자로 변환
-                    std::transform(characterName.begin(), characterName.end(), characterName.begin(),
-                    [](unsigned char c){ return std::tolower(c); });
+                    // characterName을 소문자로 변환하는 대신, WoW의 이름 규칙에 맞게 정규화합니다.
+                    // std::transform(characterName.begin(), characterName.end(), characterName.begin(),
+                    // [](unsigned char c){ return std::tolower(c); });
+                    normalizePlayerName(characterName);
 
                     LOG_INFO("module", "[홍보 보상] 처리 대상 발견: ID={}, 캐릭터={}", promotionId, characterName);
 
