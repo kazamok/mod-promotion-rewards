@@ -85,7 +85,8 @@ public:
                         continue;
                     }
 
-                    WorldSession* session = sWorldSessionMgr->FindSession(playerGuidObj.GetCounter());
+                    uint32 accountId = sCharacterCache->GetCharacterAccountIdByGuid(playerGuidObj);
+                    WorldSession* session = sWorldSessionMgr->FindSession(accountId);
                     Player* player = nullptr;
                     if (session)
                         player = session->GetPlayer();
@@ -93,10 +94,11 @@ public:
                     // 보상 지급 (온라인/오프라인 모두 우편으로 발송)
                     MailSender sender(MAIL_CREATURE, 0, MAIL_STATIONERY_GM);
                     MailDraft draft(g_promotionRewardsMailSubject, g_promotionRewardsMailBody);
-                    if (g_promotionRewardsGold > 0)
-                    {
-                        draft.AddMoney(g_promotionRewardsGold);
-                    }
+                    // 골드 대신 아이템만 보내도록 이 부분을 주석 처리합니다.
+                    // if (g_promotionRewardsGold > 0)
+                    // {
+                    //     draft.AddMoney(g_promotionRewardsGold);
+                    // }
                     if (g_promotionRewardsItemId > 0)
                     {
                         if (Item* item = Item::CreateItem(g_promotionRewardsItemId, g_promotionRewardsItemQuantity))
@@ -112,7 +114,12 @@ public:
 
                     if (player && player->GetSession())
                     {
-                        ChatHandler(player->GetSession()).SendSysMessage("|cff4CFF00[홍보보상]|r 홍보 활동에 대한 보상이 우편으로 지급되었습니다!");
+                        // 본인에게 개인 메시지 전송
+                        ChatHandler(player->GetSession()).SendSysMessage("보상이 우편으로 지급되었습니다!");
+                        // 모든 플레이어에게 전역 메시지 전송
+                        WorldPacket data;
+                        ChatHandler::BuildChatPacket(data, CHAT_MSG_SYSTEM, LANG_UNIVERSAL, ObjectGuid::Empty, ObjectGuid::Empty, std::string_view("홍보 보상 신청자는 우편을 확인하세요."), CHAT_TAG_NONE);
+                        sWorldSessionMgr->SendGlobalMessage(&data, nullptr, TEAM_NEUTRAL);
                         LOG_INFO("module", "[홍보 보상] 온라인 플레이어 {}에게 우편으로 보상 발송 완료.", characterName);
                     }
                     else
