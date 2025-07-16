@@ -9,6 +9,8 @@
 #include "CharacterCache.h" // CharacterCache 헤더 추가
 #include "Item.h" // Item.h 헤더 추가
 #include "ObjectMgr.h" // ObjectMgr.h 헤더 추가
+#include <algorithm> // std::transform 사용을 위해 추가
+#include <cctype>    // ::tolower 사용을 위해 추가
 
 // 전역 변수 선언
 bool g_promotionRewardsEnabled = false;
@@ -67,6 +69,10 @@ public:
                     Field* fields = result->Fetch();
                     uint32 promotionId = fields[0].Get<uint32>();
                     std::string characterName = fields[1].Get<std::string>();
+
+                    // characterName을 소문자로 변환
+                    std::transform(characterName.begin(), characterName.end(), characterName.begin(),
+                    [](unsigned char c){ return std::tolower(c); });
 
                     LOG_INFO("module", "[홍보 보상] 처리 대상 발견: ID={}, 캐릭터={}", promotionId, characterName);
 
