@@ -90,43 +90,35 @@ public:
                     if (session)
                         player = session->GetPlayer();
 
-                    // 보상 지급
+                    // 보상 지급 (온라인/오프라인 모두 우편으로 발송)
+                    MailSender sender(MAIL_CREATURE, 0, MAIL_STATIONERY_GM);
+                    MailDraft draft(g_promotionRewardsMailSubject, g_promotionRewardsMailBody);
+                    if (g_promotionRewardsGold > 0)
+                    {
+                        draft.AddMoney(g_promotionRewardsGold);
+                    }
+                    if (g_promotionRewardsItemId > 0)
+                    {
+                        if (Item* item = Item::CreateItem(g_promotionRewardsItemId, g_promotionRewardsItemQuantity))
+                        {
+                            draft.AddItem(item);
+                        }
+                    }
+                    MailReceiver receiver(playerGuidObj.GetCounter());
+                    CharacterDatabaseTransaction transaction = CharacterDatabase.BeginTransaction();
+
+                    draft.SendMailTo(transaction, receiver, sender);
+                    CharacterDatabase.CommitTransaction(transaction);
+
                     if (player && player->GetSession())
                     {
-                        // 플레이어가 온라인일 경우
-                        player->ModifyMoney(g_promotionRewardsGold); // AddMoney -> ModifyMoney
-                        if (g_promotionRewardsItemId > 0)
-                        {
-                            player->AddItem(g_promotionRewardsItemId, g_promotionRewardsItemQuantity);
-                        }
-                        ChatHandler(player->GetSession()).SendSysMessage("|cff4CFF00[홍보보상]|r 홍보 활동에 대한 보상이 지급되었습니다!");
-                        LOG_INFO("module", "[홍보 보상] 온라인 플레이어 {}에게 보상 지급 완료.", characterName);
+                        ChatHandler(player->GetSession()).SendSysMessage("|cff4CFF00[홍보보상]|r 홍보 활동에 대한 보상이 우편으로 지급되었습니다!");
+                        LOG_INFO("module", "[홍보 보상] 온라인 플레이어 {}에게 우편으로 보상 발송 완료.", characterName);
                     }
                     else
                     {
-                        // 플레이어가 오프라인일 경우 (우편 발송)
-                        MailSender sender(MAIL_CREATURE, 0, MAIL_STATIONERY_GM); // MailSender 인자 수정
-                        MailDraft draft(g_promotionRewardsMailSubject, g_promotionRewardsMailBody);
-                        if (g_promotionRewardsGold > 0)
-                        {
-                            draft.AddMoney(g_promotionRewardsGold);
-                        }
-                        if (g_promotionRewardsItemId > 0)
-                        {
-                            if (Item* item = Item::CreateItem(g_promotionRewardsItemId, g_promotionRewardsItemQuantity))
-                            {
-                                draft.AddItem(item);
-                            }
-                        }
-                        // MailReceiver 객체를 명시적으로 생성
-                        MailReceiver receiver(playerGuidObj.GetCounter());
-                        // CharacterDatabaseTransaction 객체를 명시적으로 생성
-                        CharacterDatabaseTransaction transaction = CharacterDatabase.BeginTransaction();
-
-                        // SendMailTo 호출 시 명시적으로 생성된 객체 사용
-                        draft.SendMailTo(transaction, receiver, sender);
                         LOG_INFO("module", "[홍보 보상] 오프라인 플레이어 {}에게 우편으로 보상 발송 완료.", characterName);
-                    } // 온라인/오프라인 처리 로직의 닫는 괄호
+                    }
 
                     // DB 상태 업데이트 (온라인/오프라인 여부와 관계없이 항상 실행)
                     LoginDatabase.Execute("UPDATE promotions SET reward_sent = 1, processed_at = NOW() WHERE id = {}", promotionId);
