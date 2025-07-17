@@ -5,8 +5,8 @@
 # 모듈 활성화 (0 = 비활성화, 1 = 활성화)
 PromotionRewards.Enable = 1
 
-# DB 확인 주기 (단위: 초/100, 예: 300 = 3초)
-PromotionRewards.CheckInterval = 60000
+# DB 확인 주기 (단위: 밀리초, 예: 3600000 = 1시간)
+PromotionRewards.CheckInterval = 3600000
 
 # 지급할 골드 (단위: 코퍼, 예: 100000 = 10골드)
 PromotionRewards.RewardGold = 1
