@@ -1,3 +1,7 @@
+
+/*
+mod-promotion-rewards.cpp */
+
 #include "ScriptMgr.h"
 #include "Player.h"
 #include "Chat.h"
