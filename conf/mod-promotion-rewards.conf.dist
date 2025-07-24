@@ -16,7 +16,7 @@
 #
 #    홍보 보상 - 모듈 활성화 및 기본 설정
 #        Description: 홍보 활동에 대한 보상을 지급하는 모듈의 기본 설정입니다.
-#        Author:      AzerothCore Community
+#        Author:      Kazamok, AzerothCore Community
 #
 ###################################################################################################
 
@@ -39,7 +39,7 @@ PromotionRewards.CheckInterval = 3600000
 #
 #    홍보 보상 - 보상 설정
 #        Description: 플레이어에게 지급할 보상의 종류와 수량을 설정합니다.
-#        Author:      AzerothCore Community
+#        Author:      Kazamok, AzerothCore Community
 #
 ###################################################################################################
 
@@ -68,7 +68,7 @@ PromotionRewards.RewardItemQuantity = 1
 #
 #    홍보 보상 - 우편 설정
 #        Description: 보상 지급 시 발송될 우편의 제목과 내용을 설정합니다.
-#        Author:      AzerothCore Community
+#        Author:      Kazamok, AzerothCore Community
 #
 ###################################################################################################
 
