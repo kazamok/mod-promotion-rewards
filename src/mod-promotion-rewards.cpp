@@ -121,10 +121,10 @@ public:
                     if (player && player->GetSession())
                     {
                         // 본인에게 개인 메시지 전송
-                        ChatHandler(player->GetSession()).SendSysMessage("보상이 우편으로 지급되었습니다!");
+                        ChatHandler(player->GetSession()).SendSysMessage("[시스템] 보상이 우편으로 지급되었습니다!");
                         // 모든 플레이어에게 전역 메시지 전송
                         WorldPacket data;
-                        ChatHandler::BuildChatPacket(data, CHAT_MSG_SYSTEM, LANG_UNIVERSAL, ObjectGuid::Empty, ObjectGuid::Empty, std::string_view("홍보 보상 신청자는 우편을 확인하세요."), CHAT_TAG_NONE);
+                        ChatHandler::BuildChatPacket(data, CHAT_MSG_SYSTEM, LANG_UNIVERSAL, ObjectGuid::Empty, ObjectGuid::Empty, std::string_view("[시스템] 홍보 보상 신청자는 우편을 확인하세요."), CHAT_TAG_NONE);
                         sWorldSessionMgr->SendGlobalMessage(&data, nullptr, TEAM_NEUTRAL);
                         LOG_INFO("module", "[홍보 보상] 온라인 플레이어 {}에게 우편으로 보상 발송 완료.", characterName);
                     }
@@ -155,3 +155,4 @@ void Addmod_promotion_rewardsScripts()
 {
     new mod_promotion_rewards_world();
 }
+
